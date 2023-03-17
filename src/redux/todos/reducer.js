@@ -5,17 +5,25 @@ import {
   CLEARCOMPLETED,
   COLORSELECTD,
   DELETED,
+  LOADED,
   TOGGLED,
 } from "./ActionTypes";
 import initialState from "./initialState";
 
+const nextTodoId = (todos) => {
+  const maxId = todos.reduce((maxId, todo) => Math.max(todo.id, maxId), -1);
+  return maxId + 1;
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case LOADED:
+      return action.payload;
     case ADDED:
       return [
         ...state,
         {
-          id: Date.now(),
+          id: nextTodoId(state),
           text: action.payload,
           completed: false,
 

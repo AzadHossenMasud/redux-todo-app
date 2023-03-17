@@ -4,6 +4,7 @@ import tickImage from "../assets/images/double-tick.png";
 import noteImage from "../assets/images/notes.png";
 import plusImage from "../assets/images/plus.png";
 import { added, allCompletd, clearCompletd } from "../redux/todos/Actions";
+import addtodo from "../redux/todos/thunk/addttodo";
 
 export default function Header() {
     const [input, setInput]= useState('')
@@ -14,7 +15,7 @@ export default function Header() {
 
     const handleSubmit = (e)=> {
         e.preventDefault()
-       dispatch(added(input))
+       dispatch(addtodo(input))
        setInput('')
 
     }

@@ -1,9 +1,16 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import fetchtodos from "../redux/todos/thunk/fetchtodos";
 import Todo from "./Todo";
 
 export default function TodoList() {
   const todos = useSelector((state) => state.todos);
   const filters = useSelector((state) => state.filters);
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(fetchtodos)
+  },[dispatch])
   // console.log(todos)
   return (
     <div className="mt-2 text-gray-700 text-sm max-h-[300px] overflow-y-auto">

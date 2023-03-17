@@ -1,6 +1,9 @@
 import { useDispatch } from "react-redux";
 import cancelImage from "../assets/images/cancel.png";
 import { colorSelected, deleted, toggled } from "../redux/todos/Actions";
+import deleteTodo from "../redux/todos/thunk/deleteTodo";
+import updateColorStatus from "../redux/todos/thunk/updateColorStatus";
+import updateStatus from "../redux/todos/thunk/updateStatus";
 
 export default function Todo({ todo }) {
   const dispatch = useDispatch();
@@ -8,17 +11,18 @@ export default function Todo({ todo }) {
   const { text, id, completed, color } = todo;
   //   console.log(todo);
 
-  const handleToggled = (id)=>{
-    dispatch(toggled(id))
+  const handleToggled = (id, currentStatus)=>{
+    // console.log(id, currentStatus)
+    dispatch(updateStatus(id, currentStatus))
   }
 
   const handleColorChanged = (id, color)=>{
     // console.log(id, color)
-    dispatch(colorSelected(id, color))
+    dispatch(updateColorStatus(id, color))
   }
 
   const handleDeleteTodo = (id)=> {
-    dispatch(deleted(id))
+    dispatch(deleteTodo(id))
   }
   return (
     <div className="flex justify-start items-center p-2 hover:bg-gray-100 hover:transition-all space-x-4 border-b border-gray-400/20 last:border-0">
@@ -26,7 +30,7 @@ export default function Todo({ todo }) {
         <input
           type="checkbox"
           checked={completed}
-          onChange={()=>handleToggled(id)}
+          onChange={()=>handleToggled(id, completed)}
           className="opacity-0 absolute rounded-full"
         />
         <svg
